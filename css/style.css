@@ -1,0 +1,29 @@
+main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+table{
+    border-collapse: collapse;
+    background-color: #00FFFF;
+}
+
+table button{
+    width: 150px;
+    margin-top: 10px;
+}
+
+table tbody tr:hover{
+    background-color: #7FFFD4 !important;
+    transition: 0.5s;
+}
+
+#tabela_usuario_filter{
+    padding: 10px !important;
+}
+
+.cadastro{
+    width: 500px;
+}
