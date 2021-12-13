@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    let dataTable;
     var objMock = [
         { id: 1, nome: "Roberto", token: "56afb8ca-e0e7-4512-9500-37e403dabf78", configuracao: 1 },
         { id: 2, nome: "Pedro", token: "36b6f4f0-941e-4a21-9df1-261ac924d987", configuracao: 3 },
@@ -14,25 +15,30 @@ $(document).ready(function () {
         { id: 3, nome: "Secretárias" },
     ]
 
-    let tabela = "<thead> <tr> <td>Nome</td><td>Token</td><td>Configuração</td><td>Opções</td> </tr> </thead>"
-    tabela = tabela.concat("<tbody>")
-    objMock.forEach((usuario) => {
-        tabela = tabela.concat("<tr>");
-        tabela = tabela.concat("<td>" + usuario.nome + "</td>");
-        tabela = tabela.concat("<td>" + usuario.token + "</td>");
-        tabela = tabela.concat("<td>" + usuario.configuracao + "</td>");
-        tabela = tabela.concat("<td> <button value='" + usuario.token + "' class='btn btn-info'>Copiar Token</button> </td>");
-        tabela = tabela.concat("</tr>");
-    })
-    tabela = tabela.concat("</tbody>")
+    montaTabela();
+    
+    function montaTabela(){
+        let tabela = "<thead> <tr> <td>Nome</td><td>Token</td><td>Configuração</td><td>Opções</td> </tr> </thead>"
+        tabela = tabela.concat("<tbody>")
+        objMock.forEach((usuario) => {
+            tabela = tabela.concat("<tr>");
+            tabela = tabela.concat("<td>" + usuario.nome + "</td>");
+            tabela = tabela.concat("<td>" + usuario.token + "</td>");
+            tabela = tabela.concat("<td>" + usuario.configuracao + "</td>");
+            tabela = tabela.concat("<td> <button value='" + usuario.token + "' class='btn btn-info'>Copiar Token</button> </td>");
+            tabela = tabela.concat("</tr>");
+        })
+        tabela = tabela.concat("</tbody>")
 
-    $("#tabela_usuario").html(tabela);
-    $('#tabela_usuario').DataTable({
-        paging: false,
-        scrollY: 200
-    });
+        $("#tabela_usuario").html(tabela);
+        dataTable = $('#tabela_usuario').DataTable({
+            paging: false,
+            scrollY: 200
+        });
+    }
+    
 
-    let select = "<select class='form-select'>";
+    let select = "<label for='selectConfig' class='form-label'>Configuração</label><select id='selectConfig' class='form-select'>";
     select = select.concat("<option selected>Selecione uma opção</option>")
     selectConfig.forEach((config) => {
         select = select.concat("<option value='" + config.id + "'> " + config.nome + " </option>");
@@ -46,6 +52,22 @@ $(document).ready(function () {
         navigator.clipboard.writeText($(this).val());
         alert("Copiado")
     });
+
+    $("#formUsuario").submit(function(event){
+        event.preventDefault();
+        var nome = $("#nome").val();
+        var config = $("#selectConfig").val();
+        if(isNaN(config)){
+            alert("Informe uma configuração")
+        }else {
+            /*ENVIAR PARA O BACK O USUÁRIO CRIADO E RE-GERAR A TABELA COM O USUÁRIO NOVO*/
+            objMock.push({nome: nome, configuracao: config})
+            dataTable.destroy();
+            montaTabela();
+            $("#nome").val("");
+            $("#selectConfig").val("Selecione uma opção");
+        }        
+    })
 }
 
 )

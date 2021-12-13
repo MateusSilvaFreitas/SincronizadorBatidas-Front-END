@@ -9,10 +9,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8"
         src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
-    <script src="./js/usuarios.js"></script>
+    <script src="./js/config.js"></script>
     <title>Ponto fácil</title>
 </head>
-
 <body>
     <header>
         <nav>
@@ -25,14 +24,14 @@
     </header>
     <main>
         <section>
-            <form id="formUsuario">
+            <form id="formConfig">
                 <div class="mb-3 cadastro">
                     <label for="nome" class="form-label">Nome</label>
                     <input type="text" class="form-control" id="nome" required>
-                </div>
-
-                <div class="mb-3" id="configuracoes">
-                    
+                    <label for="tempoCiclo" class="form-label">Tempo ciclo</label>
+                    <input type="number" class="form-control" id="tempoCiclo" required>
+                    <label for="qntdCiclo" class="form-label">Quantidade ciclos</label>
+                    <input type="number" class="form-control" id="qntdCiclo" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Gravar</button>
